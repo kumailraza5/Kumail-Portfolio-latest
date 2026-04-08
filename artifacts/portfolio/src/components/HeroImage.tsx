@@ -96,9 +96,9 @@ export function HeroImage({ scrollY, mobile = false }: HeroImageProps) {
           alt="Kumail Raza"
           className="block object-contain object-bottom"
           style={{
-            height: mobile ? "clamp(260px, 42vh, 360px)" : "clamp(420px, 82vh, 680px)",
+            height: mobile ? "clamp(320px, 54vh, 450px)" : "clamp(420px, 82vh, 680px)",
             width: "auto",
-            maxWidth: mobile ? "240px" : "380px",
+            maxWidth: mobile ? "300px" : "380px",
             filter:
               "drop-shadow(-12px 0 40px rgba(124,58,237,0.38)) drop-shadow(0 -5px 25px rgba(99,102,241,0.22))",
           }}

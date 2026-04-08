@@ -77,7 +77,7 @@ export function Home() {
             Image sits directly above text, ~12px gap
         ════════════════════════════════════════ */}
         {isMobile && (
-          <div className="absolute inset-0 z-[4] flex flex-col items-center justify-center pt-14 px-5">
+          <div className="absolute inset-0 z-[4] flex flex-col items-center justify-center pt-4 px-5">
             {/* Image block */}
             <div className="flex-shrink-0 select-none">
               <HeroImage scrollY={scrollY} mobile />
