@@ -7,6 +7,7 @@ import { ProjectsSection } from "../components/ProjectsSection";
 import { ContactSection } from "../components/ContactSection";
 import { Footer } from "../components/Footer";
 import { useTheme } from "../hooks/useTheme";
+import { HeroImage } from "../components/HeroImage";
 
 export function Home() {
   const { theme, toggleTheme } = useTheme();
@@ -38,42 +39,64 @@ export function Home() {
 
       {/* Hero Section */}
       <section className="relative w-full h-screen overflow-hidden">
-        {/* Dark gradient backdrop for cinematic feel */}
+        {/* Dark backdrop */}
         <div
-          className={`absolute inset-0 z-0 transition-colors duration-700 ${
-            theme === "dark"
-              ? "bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950"
-              : "bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900"
-          }`}
-        />
-
-        {/* Subtle glow effect */}
-        <div
-          className={`absolute inset-0 z-0 transition-opacity duration-700 ${
-            theme === "dark" ? "opacity-100" : "opacity-60"
-          }`}
+          className="absolute inset-0 z-0"
           style={{
-            background: "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(124,58,237,0.15) 0%, transparent 70%)",
+            background:
+              theme === "dark"
+                ? "radial-gradient(ellipse 80% 80% at 70% 60%, rgba(79,46,229,0.18) 0%, transparent 60%), linear-gradient(to bottom, #050816 0%, #0a0f2e 50%, #060c24 100%)"
+                : "radial-gradient(ellipse 80% 80% at 70% 60%, rgba(99,102,241,0.14) 0%, transparent 60%), linear-gradient(to bottom, #0a0f2e 0%, #111827 50%, #060c24 100%)",
           }}
         />
 
-        {/* R3F Canvas */}
+        {/* Subtle grid */}
+        <div
+          className="absolute inset-0 z-0 opacity-10"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(99,102,241,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,0.3) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
+        />
+
+        {/* 3D Canvas — background only (code rain + particles) */}
         <div className="absolute inset-0 z-[1]">
           <HeroScene mouse={mouse} scrollY={scrollY} isDark={theme === "dark"} />
+          {/* Note: mouse/scrollY props are forwarded but scene no longer needs them directly */}
         </div>
 
-        {/* Bottom gradient overlay for text readability */}
-        <div className="absolute bottom-0 left-0 right-0 h-72 z-[2] bg-gradient-to-t from-gray-950/90 via-gray-950/50 to-transparent pointer-events-none" />
+        {/* Photo — right side, anchored to bottom */}
+        <div
+          className="absolute bottom-0 z-[2] flex items-end pointer-events-none select-none"
+          style={{ right: "6%", maxHeight: "88vh" }}
+        >
+          <HeroImage scrollY={scrollY} />
+        </div>
 
-        {/* Overlay UI */}
-        <div className="absolute inset-0 z-[3]">
+        {/* Gradient fades at the bottom and right-to-left to blend image */}
+        <div
+          className="absolute bottom-0 left-0 right-0 h-48 z-[3] pointer-events-none"
+          style={{
+            background: "linear-gradient(to top, rgba(5,8,22,0.85) 0%, rgba(5,8,22,0.4) 40%, transparent 100%)",
+          }}
+        />
+        <div
+          className="absolute top-0 bottom-0 right-0 w-1/4 z-[3] pointer-events-none"
+          style={{
+            background: "linear-gradient(to left, rgba(5,8,22,0.3) 0%, transparent 100%)",
+          }}
+        />
+
+        {/* Text overlay — left side */}
+        <div className="absolute inset-0 z-[4]">
           <HeroOverlay />
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[4] flex flex-col items-center gap-2 animate-bounce pointer-events-none">
-          <span className="text-xs text-white/50 uppercase tracking-widest">Scroll</span>
-          <div className="w-px h-8 bg-gradient-to-b from-white/50 to-transparent" />
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[5] flex flex-col items-center gap-2 animate-bounce pointer-events-none">
+          <span className="text-xs text-white/40 uppercase tracking-widest font-mono">scroll</span>
+          <div className="w-px h-8 bg-gradient-to-b from-violet-400/50 to-transparent" />
         </div>
       </section>
 
