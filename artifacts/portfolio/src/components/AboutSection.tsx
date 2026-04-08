@@ -5,12 +5,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const skills = [
-  { label: "Flutter", level: 95 },
-  { label: "Dart", level: 90 },
-  { label: "Firebase", level: 85 },
-  { label: "REST APIs", level: 88 },
-  { label: "UI/UX Design", level: 78 },
-  { label: "Git & CI/CD", level: 80 },
+  { label: "React / React Native", level: 93 },
+  { label: "TypeScript", level: 90 },
+  { label: "Node.js", level: 88 },
+  { label: "Supabase", level: 85 },
+  { label: "Firestore / Firebase", level: 87 },
+  { label: "REST APIs & GraphQL", level: 82 },
 ];
 
 export function AboutSection() {
@@ -25,10 +25,7 @@ export function AboutSection() {
         { opacity: 0, x: -50 },
         {
           opacity: 1, x: 0, duration: 1, ease: "expo.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 75%",
-          },
+          scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
         }
       );
 
@@ -37,10 +34,7 @@ export function AboutSection() {
         { opacity: 0, x: 50 },
         {
           opacity: 1, x: 0, duration: 0.8, ease: "expo.out", stagger: 0.1,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 70%",
-          },
+          scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
         }
       );
 
@@ -52,10 +46,7 @@ export function AboutSection() {
           { width: "0%" },
           {
             width: target, duration: 1.2, ease: "expo.out",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 60%",
-            },
+            scrollTrigger: { trigger: sectionRef.current, start: "top 60%" },
           }
         );
       });
@@ -83,23 +74,23 @@ export function AboutSection() {
             , one app at a time.
           </h2>
           <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-5">
-            I'm Kumail Raza, a passionate Flutter developer dedicated to creating elegant,
-            high-performance mobile applications. I combine clean code with beautiful
-            design to deliver exceptional user experiences.
+            I'm Kumail Raza, a full-stack developer specializing in React, TypeScript, and
+            Node.js. I build fast, scalable web applications backed by modern cloud
+            infrastructure — Supabase and Firestore.
           </p>
           <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-            With deep expertise in Dart and the Flutter ecosystem, I build apps that feel
-            native, look stunning, and perform flawlessly — on both iOS and Android.
+            From pixel-perfect UIs to robust backend APIs, I craft end-to-end experiences
+            that feel both powerful and effortless to use.
           </p>
 
-          <div className="mt-8 flex gap-4">
+          <div className="mt-8 flex gap-6">
             <div className="text-center">
               <span className="block text-3xl font-black text-violet-600 dark:text-violet-400">3+</span>
               <span className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Years Exp.</span>
             </div>
             <div className="w-px bg-gray-200 dark:bg-gray-700" />
             <div className="text-center">
-              <span className="block text-3xl font-black text-violet-600 dark:text-violet-400">15+</span>
+              <span className="block text-3xl font-black text-violet-600 dark:text-violet-400">20+</span>
               <span className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Projects</span>
             </div>
             <div className="w-px bg-gray-200 dark:bg-gray-700" />

@@ -7,58 +7,58 @@ gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
-    title: "ShopEase",
+    title: "DevBoard",
     description:
-      "A full-featured e-commerce app with real-time inventory, smooth animations, and seamless payment integration.",
-    tags: ["Flutter", "Firebase", "Stripe", "Provider"],
+      "Full-stack project management dashboard with real-time updates, team collaboration, and Supabase-powered backend with Row Level Security.",
+    tags: ["React", "TypeScript", "Supabase", "Tailwind"],
     gradient: "from-violet-600 to-indigo-600",
     glow: "group-hover:shadow-violet-500/30",
-    icon: "🛒",
+    icon: "🖥️",
   },
   {
-    title: "FitPulse",
+    title: "ChatSync",
     description:
-      "Health & fitness tracker with custom workout plans, live stats, health kit integration and stunning UI.",
-    tags: ["Flutter", "Dart", "REST API", "BLoC"],
+      "Real-time messaging app with Firestore as the backend, presence indicators, read receipts, and end-to-end encrypted rooms.",
+    tags: ["React", "Firestore", "Node.js", "TypeScript"],
     gradient: "from-indigo-600 to-blue-600",
     glow: "group-hover:shadow-blue-500/30",
-    icon: "💪",
-  },
-  {
-    title: "TalkFlow",
-    description:
-      "Real-time messaging app with encrypted chat, voice calls, group rooms and media sharing.",
-    tags: ["Flutter", "Firebase", "WebRTC", "Riverpod"],
-    gradient: "from-purple-600 to-pink-600",
-    glow: "group-hover:shadow-purple-500/30",
     icon: "💬",
   },
   {
-    title: "WalletWise",
+    title: "AuthKit",
     description:
-      "Personal finance tracker with beautiful charts, budget categories, and AI-powered spending insights.",
-    tags: ["Flutter", "SQLite", "Hive", "Charts"],
+      "Production-ready auth boilerplate — JWT, refresh tokens, email verification, OAuth, and rate limiting with Node.js + TypeScript.",
+    tags: ["Node.js", "TypeScript", "Supabase", "JWT"],
+    gradient: "from-purple-600 to-pink-600",
+    glow: "group-hover:shadow-purple-500/30",
+    icon: "🔐",
+  },
+  {
+    title: "StoreFront",
+    description:
+      "E-commerce platform with a React storefront, Node.js API, Supabase database, and Stripe payments. Full admin dashboard included.",
+    tags: ["React", "Node.js", "Supabase", "Stripe"],
     gradient: "from-teal-500 to-cyan-600",
     glow: "group-hover:shadow-teal-500/30",
-    icon: "💰",
+    icon: "🛍️",
   },
   {
-    title: "TravelMate",
+    title: "DataFlow",
     description:
-      "Discover and plan trips with curated destinations, Google Maps integration, and offline support.",
-    tags: ["Flutter", "Google Maps", "REST API", "GetX"],
+      "Analytics dashboard that ingests streaming data, aggregates it via Node.js workers, and visualizes insights in interactive React charts.",
+    tags: ["React TS", "Node.js", "Firestore", "Recharts"],
     gradient: "from-orange-500 to-rose-600",
     glow: "group-hover:shadow-orange-500/30",
-    icon: "✈️",
+    icon: "📊",
   },
   {
-    title: "StudyHub",
+    title: "NoteNest",
     description:
-      "Interactive learning platform with quizzes, video lessons, progress tracking, and certificate generation.",
-    tags: ["Flutter", "Firebase", "Dio", "GetIt"],
+      "Collaborative note-taking app with rich text editing, live presence cursors, folder organization, and Supabase Realtime sync.",
+    tags: ["React", "TypeScript", "Supabase", "TipTap"],
     gradient: "from-emerald-500 to-green-600",
     glow: "group-hover:shadow-emerald-500/30",
-    icon: "📚",
+    icon: "📝",
   },
 ];
 
@@ -109,7 +109,7 @@ export function ProjectsSection() {
             </span>
           </h2>
           <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto">
-            A selection of apps I've built — each one crafted with attention to detail and a drive for excellence.
+            A selection of full-stack apps built with React, TypeScript, Node.js, Supabase, and Firestore.
           </p>
         </div>
 

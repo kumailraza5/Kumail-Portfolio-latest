@@ -57,13 +57,13 @@ export function HeroOverlay() {
           className="text-lg md:text-2xl font-semibold tracking-widest uppercase text-violet-300 drop-shadow-lg mb-2"
           style={{ textShadow: "0 0 20px rgba(167,139,250,0.8)" }}
         >
-          Flutter Developer
+          Full Stack Developer
         </p>
         <p
           ref={subtitleRef}
           className="text-sm md:text-base text-gray-300/80 mb-8 max-w-xs mx-auto"
         >
-          Crafting beautiful mobile experiences
+          React · TypeScript · Node.js · Supabase
         </p>
         <div ref={ctaRef} className="flex gap-4 justify-center">
           <button
