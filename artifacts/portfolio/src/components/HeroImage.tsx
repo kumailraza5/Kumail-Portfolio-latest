@@ -1,22 +1,29 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
+import { useDeviceTilt } from "../hooks/useDeviceTilt";
 
 interface HeroImageProps {
   scrollY: React.MutableRefObject<number>;
+  mobile?: boolean;
 }
 
-export function HeroImage({ scrollY }: HeroImageProps) {
+export function HeroImage({ scrollY, mobile = false }: HeroImageProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+  const tilt = useDeviceTilt();
 
+  /* Animate in */
   useEffect(() => {
     gsap.fromTo(
       wrapRef.current,
-      { opacity: 0, y: 30 },
+      { opacity: 0, y: mobile ? 50 : 30 },
       { opacity: 1, y: 0, duration: 1.0, ease: "expo.out", delay: 0.15 }
     );
-  }, []);
+  }, [mobile]);
 
+  /* Scroll parallax (desktop only) */
   useEffect(() => {
+    if (mobile) return;
     let raf: number;
     const update = () => {
       if (wrapRef.current) {
@@ -27,41 +34,77 @@ export function HeroImage({ scrollY }: HeroImageProps) {
     };
     raf = requestAnimationFrame(update);
     return () => cancelAnimationFrame(raf);
-  }, [scrollY]);
+  }, [scrollY, mobile]);
+
+  /* 3D tilt effect — applied via JS for smooth spring */
+  useEffect(() => {
+    if (!innerRef.current) return;
+    const maxRot = mobile ? 14 : 10;
+    gsap.to(innerRef.current, {
+      rotateY: tilt.x * maxRot,
+      rotateX: -tilt.y * maxRot,
+      duration: 0.8,
+      ease: "power2.out",
+      overwrite: true,
+    });
+  }, [tilt, mobile]);
 
   return (
     <div
       ref={wrapRef}
       className="relative"
-      style={{
-        filter:
-          "drop-shadow(-15px 0 50px rgba(124,58,237,0.4)) drop-shadow(0 -5px 30px rgba(99,102,241,0.25))",
-      }}
+      style={{ perspective: "900px" }}
     >
-      {/* Glow beneath feet */}
+      {/* Inner wrapper gets the 3D rotation */}
       <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none"
+        ref={innerRef}
+        className="relative"
         style={{
-          width: "240px",
-          height: "80px",
-          background:
-            "radial-gradient(ellipse, rgba(124,58,237,0.4) 0%, transparent 70%)",
-          filter: "blur(18px)",
-          zIndex: -1,
+          transformStyle: "preserve-3d",
+          willChange: "transform",
         }}
-      />
+      >
+        {/* Glow beneath feet */}
+        <div
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none"
+          style={{
+            width: mobile ? "200px" : "240px",
+            height: mobile ? "60px" : "80px",
+            background:
+              "radial-gradient(ellipse, rgba(124,58,237,0.45) 0%, transparent 70%)",
+            filter: "blur(18px)",
+            zIndex: -1,
+            transform: "translateZ(-20px)",
+          }}
+        />
 
-      <img
-        src="/kumail.png"
-        alt="Kumail Raza"
-        className="block object-contain object-bottom"
-        style={{
-          height: "clamp(420px, 82vh, 680px)",
-          width: "auto",
-          maxWidth: "380px",
-        }}
-        draggable={false}
-      />
+        {/* Left edge glow */}
+        <div
+          className="absolute left-0 top-1/4 pointer-events-none"
+          style={{
+            width: "60px",
+            height: "60%",
+            background:
+              "linear-gradient(to right, rgba(124,58,237,0.25), transparent)",
+            filter: "blur(12px)",
+            zIndex: -1,
+          }}
+        />
+
+        <img
+          src="/kumail.png"
+          alt="Kumail Raza"
+          className="block object-contain object-bottom"
+          style={{
+            height: mobile ? "clamp(340px, 68vh, 520px)" : "clamp(420px, 82vh, 680px)",
+            width: "auto",
+            maxWidth: mobile ? "280px" : "380px",
+            filter:
+              "drop-shadow(-12px 0 40px rgba(124,58,237,0.38)) drop-shadow(0 -5px 25px rgba(99,102,241,0.22))",
+          }}
+          draggable={false}
+        />
+      </div>
     </div>
   );
 }

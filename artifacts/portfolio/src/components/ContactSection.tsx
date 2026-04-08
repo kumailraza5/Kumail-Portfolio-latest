@@ -14,20 +14,18 @@ export function ContactSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        leftRef.current,
-        { opacity: 0, x: -40 },
+      gsap.fromTo(leftRef.current,
+        { opacity: 0, y: 40 },
         {
-          opacity: 1, x: 0, duration: 1, ease: "expo.out",
-          scrollTrigger: { trigger: sectionRef.current, start: "top 75%" },
+          opacity: 1, y: 0, duration: 1, ease: "expo.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 78%" },
         }
       );
-      gsap.fromTo(
-        rightRef.current,
-        { opacity: 0, x: 40 },
+      gsap.fromTo(rightRef.current,
+        { opacity: 0, y: 40 },
         {
-          opacity: 1, x: 0, duration: 1, ease: "expo.out",
-          scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
+          opacity: 1, y: 0, duration: 1, ease: "expo.out", delay: 0.1,
+          scrollTrigger: { trigger: sectionRef.current, start: "top 74%" },
         }
       );
     }, sectionRef);
@@ -48,39 +46,38 @@ export function ContactSection() {
     { icon: Twitter, label: "@kumailraza", href: "#" },
   ];
 
+  const inputClass =
+    "w-full px-4 py-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all text-sm";
+
   return (
     <section
       id="contact"
       ref={sectionRef}
-      className="py-28 px-6 bg-white dark:bg-gray-950 transition-colors duration-500"
+      className="py-20 md:py-28 px-5 md:px-6 bg-white dark:bg-gray-950 transition-colors duration-500"
     >
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-start">
+      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 md:gap-16 items-start">
         <div ref={leftRef}>
           <span className="text-xs font-bold uppercase tracking-widest text-violet-500 mb-3 block">
             Contact
           </span>
-          <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-5 leading-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white mb-4 leading-tight">
             Let's build{" "}
             <span className="bg-gradient-to-r from-violet-600 to-indigo-500 bg-clip-text text-transparent">
               something
             </span>{" "}
             great.
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-10">
-            Have a project in mind? I'd love to hear about it. Reach out and let's create something amazing together.
+          <p className="text-gray-600 dark:text-gray-400 text-sm md:text-base leading-relaxed mb-8">
+            Have a project in mind? Reach out — I'd love to hear about it.
           </p>
 
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-4">
             {socials.map(({ icon: Icon, label, href }) => (
-              <a
-                key={label}
-                href={href}
-                className="flex items-center gap-4 group"
-              >
-                <div className="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center text-violet-600 dark:text-violet-400 group-hover:bg-violet-600 group-hover:text-white transition-all duration-200">
-                  <Icon size={18} />
+              <a key={label} href={href} className="flex items-center gap-4 group">
+                <div className="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center text-violet-600 dark:text-violet-400 group-hover:bg-violet-600 group-hover:text-white transition-all duration-200 flex-shrink-0">
+                  <Icon size={17} />
                 </div>
-                <span className="text-gray-700 dark:text-gray-300 text-sm font-medium group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">
+                <span className="text-gray-700 dark:text-gray-300 text-sm font-medium group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors truncate">
                   {label}
                 </span>
               </a>
@@ -91,7 +88,7 @@ export function ContactSection() {
         <div ref={rightRef}>
           <form
             onSubmit={handleSubmit}
-            className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700/50 rounded-2xl p-8 flex flex-col gap-5"
+            className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700/50 rounded-2xl p-5 md:p-8 flex flex-col gap-4"
           >
             <div>
               <label className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2 block">
@@ -103,7 +100,7 @@ export function ContactSection() {
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 placeholder="Your name"
-                className="w-full px-4 py-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all text-sm"
+                className={inputClass}
               />
             </div>
             <div>
@@ -116,7 +113,7 @@ export function ContactSection() {
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 placeholder="your@email.com"
-                className="w-full px-4 py-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all text-sm"
+                className={inputClass}
               />
             </div>
             <div>
@@ -125,11 +122,11 @@ export function ContactSection() {
               </label>
               <textarea
                 required
-                rows={5}
+                rows={4}
                 value={form.message}
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
                 placeholder="Tell me about your project..."
-                className="w-full px-4 py-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all text-sm resize-none"
+                className={`${inputClass} resize-none`}
               />
             </div>
 
@@ -141,9 +138,9 @@ export function ContactSection() {
 
             <button
               type="submit"
-              className="flex items-center justify-center gap-2 w-full py-3.5 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/30 hover:scale-[1.02]"
+              className="flex items-center justify-center gap-2 w-full py-3.5 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/30 hover:scale-[1.02] active:scale-95 text-sm"
             >
-              <Send size={16} /> Send Message
+              <Send size={15} /> Send Message
             </button>
           </form>
         </div>
