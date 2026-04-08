@@ -32,9 +32,7 @@ export function Home() {
         -(e.clientY / window.innerHeight - 0.5) * 2,
       ];
     };
-    const handleScroll = () => {
-      scrollY.current = window.scrollY;
-    };
+    const handleScroll = () => { scrollY.current = window.scrollY; };
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
@@ -69,61 +67,85 @@ export function Home() {
           }}
         />
 
-        {/* 3D Canvas background — code rain + particles */}
+        {/* Code rain + particles canvas */}
         <div className="absolute inset-0 z-[1]">
           <HeroScene mouse={mouse} scrollY={scrollY} isDark={theme === "dark"} />
         </div>
 
-        {/* ── MOBILE layout: image anchored center, above text area ── */}
+        {/* ════════════════════════════════════════
+            MOBILE — single centered flex column
+            Image sits directly above text, ~12px gap
+        ════════════════════════════════════════ */}
         {isMobile && (
-          <div className="absolute top-14 bottom-[38%] left-0 right-0 z-[2] flex items-end justify-center pointer-events-none select-none">
-            <HeroImage scrollY={scrollY} mobile />
+          <div className="absolute inset-0 z-[4] flex flex-col items-center justify-center pt-14 px-5">
+            {/* Image block */}
+            <div className="flex-shrink-0 select-none">
+              <HeroImage scrollY={scrollY} mobile />
+            </div>
+
+            {/* 12px gap between image and text */}
+            <div style={{ height: 12 }} />
+
+            {/* Text block — inline, no absolute positioning */}
+            <HeroOverlay isMobile inline />
           </div>
         )}
 
-        {/* ── DESKTOP layout: image right side ── */}
+        {/* ════════════════════════════════════════
+            DESKTOP — image pinned bottom-right,
+            text overlay bottom-left
+        ════════════════════════════════════════ */}
         {!isMobile && (
-          <div
-            className="absolute bottom-0 z-[2] flex items-end pointer-events-none select-none"
-            style={{ right: "6%" }}
-          >
-            <HeroImage scrollY={scrollY} mobile={false} />
-          </div>
+          <>
+            <div
+              className="absolute bottom-0 z-[2] flex items-end pointer-events-none select-none"
+              style={{ right: "6%" }}
+            >
+              <HeroImage scrollY={scrollY} mobile={false} />
+            </div>
+
+            {/* Bottom gradient */}
+            <div
+              className="absolute bottom-0 left-0 right-0 z-[3] pointer-events-none"
+              style={{
+                height: "45%",
+                background:
+                  "linear-gradient(to top, rgba(5,8,22,0.88) 0%, rgba(5,8,22,0.5) 40%, transparent 100%)",
+              }}
+            />
+
+            {/* Right fade */}
+            <div
+              className="absolute top-0 bottom-0 right-0 z-[3] pointer-events-none"
+              style={{
+                width: "22%",
+                background: "linear-gradient(to left, rgba(5,8,22,0.35) 0%, transparent 100%)",
+              }}
+            />
+
+            {/* Desktop text overlay */}
+            <div className="absolute inset-0 z-[4]">
+              <HeroOverlay isMobile={false} />
+            </div>
+
+            {/* Scroll indicator */}
+            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-[5] flex flex-col items-center gap-1.5 animate-bounce pointer-events-none">
+              <span className="text-[10px] text-white/40 uppercase tracking-widest font-mono">scroll</span>
+              <div className="w-px h-6 bg-gradient-to-b from-violet-400/50 to-transparent" />
+            </div>
+          </>
         )}
 
-        {/* Bottom gradient for readability */}
-        <div
-          className="absolute bottom-0 left-0 right-0 z-[3] pointer-events-none"
-          style={{
-            height: isMobile ? "52%" : "45%",
-            background: isMobile
-              ? "linear-gradient(to top, rgba(5,8,22,0.97) 0%, rgba(5,8,22,0.85) 30%, rgba(5,8,22,0.5) 60%, transparent 100%)"
-              : "linear-gradient(to top, rgba(5,8,22,0.88) 0%, rgba(5,8,22,0.5) 40%, transparent 100%)",
-          }}
-        />
-
-        {/* Right fade — desktop only */}
-        {!isMobile && (
+        {/* Mobile — very subtle bottom vignette only */}
+        {isMobile && (
           <div
-            className="absolute top-0 bottom-0 right-0 z-[3] pointer-events-none"
+            className="absolute bottom-0 left-0 right-0 z-[3] pointer-events-none"
             style={{
-              width: "22%",
-              background: "linear-gradient(to left, rgba(5,8,22,0.35) 0%, transparent 100%)",
+              height: "18%",
+              background:
+                "linear-gradient(to top, rgba(5,8,22,0.6) 0%, transparent 100%)",
             }}
           />
-        )}
-
-        {/* Text overlay */}
-        <div className="absolute inset-0 z-[4]">
-          <HeroOverlay isMobile={isMobile} />
-        </div>
-
-        {/* Scroll indicator — desktop only */}
-        {!isMobile && (
-          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-[5] flex flex-col items-center gap-1.5 animate-bounce pointer-events-none">
-            <span className="text-[10px] text-white/40 uppercase tracking-widest font-mono">scroll</span>
-            <div className="w-px h-6 bg-gradient-to-b from-violet-400/50 to-transparent" />
-          </div>
         )}
       </section>
 
