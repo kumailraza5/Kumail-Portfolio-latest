@@ -1,4 +1,6 @@
 import { useRef, useEffect, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { HeroScene } from "../components/HeroScene";
 import { HeroOverlay } from "../components/HeroOverlay";
 import { Navbar } from "../components/Navbar";
@@ -8,6 +10,8 @@ import { ContactSection } from "../components/ContactSection";
 import { Footer } from "../components/Footer";
 import { useTheme } from "../hooks/useTheme";
 import { HeroImage } from "../components/HeroImage";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
@@ -35,9 +39,38 @@ export function Home() {
     const handleScroll = () => { scrollY.current = window.scrollY; };
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // GSAP Scroll Parallax
+    const ctx = gsap.context(() => {
+      // Background parallax
+      gsap.to(".hero-bg", {
+        y: "20%",
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".hero-section",
+          start: "top top",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+
+      // 3D Scene and Content parallax
+      gsap.to(".hero-content", {
+        y: "10%",
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".hero-section",
+          start: "top top",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+    });
+
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("scroll", handleScroll);
+      ctx.revert();
     };
   }, []);
 
@@ -46,11 +79,11 @@ export function Home() {
       <Navbar theme={theme} toggleTheme={toggleTheme} />
 
       {/* ═══ HERO ═══ */}
-      <section className="relative w-full h-screen overflow-hidden">
+      <section className="hero-section relative w-full h-screen overflow-hidden">
 
         {/* Dark space backdrop */}
         <div
-          className="absolute inset-0 z-0"
+          className="hero-bg absolute inset-0 z-0"
           style={{
             background:
               "radial-gradient(ellipse 80% 80% at 65% 55%, rgba(79,46,229,0.18) 0%, transparent 60%), linear-gradient(to bottom, #050816 0%, #0a0f2e 50%, #060c24 100%)",
@@ -68,8 +101,8 @@ export function Home() {
         />
 
         {/* Code rain + particles canvas */}
-        <div className="absolute inset-0 z-[1]">
-          <HeroScene mouse={mouse} scrollY={scrollY} isDark={theme === "dark"} />
+        <div className="hero-content absolute inset-0 z-[1]">
+          <HeroScene mouse={mouse} scrollY={scrollY} isDark={theme === "dark"} isMobile={isMobile} />
         </div>
 
         {/* ════════════════════════════════════════
@@ -77,7 +110,7 @@ export function Home() {
             Image sits directly above text, ~12px gap
         ════════════════════════════════════════ */}
         {isMobile && (
-          <div className="absolute inset-0 z-[4] flex flex-col items-center justify-center pt-4 px-5">
+          <div className="hero-content absolute inset-0 z-[4] flex flex-col items-center justify-center pt-4 px-5">
             {/* Image block */}
             <div className="flex-shrink-0 select-none">
               <HeroImage scrollY={scrollY} mobile />
@@ -92,14 +125,17 @@ export function Home() {
         )}
 
         {/* ════════════════════════════════════════
-            DESKTOP — image pinned bottom-right,
-            text overlay bottom-left
+            DESKTOP — centered: portrait above text,
+        {/* ════════════════════════════════════════
+            DESKTOP — image right, text left
+            badges orbit in the center
         ════════════════════════════════════════ */}
         {!isMobile && (
           <>
+            {/* Image on Right */}
             <div
               className="absolute bottom-0 z-[2] flex items-end pointer-events-none select-none"
-              style={{ right: "6%" }}
+              style={{ right: "8%" }}
             >
               <HeroImage scrollY={scrollY} mobile={false} />
             </div>
@@ -108,9 +144,9 @@ export function Home() {
             <div
               className="absolute bottom-0 left-0 right-0 z-[3] pointer-events-none"
               style={{
-                height: "45%",
+                height: "35%",
                 background:
-                  "linear-gradient(to top, rgba(5,8,22,0.88) 0%, rgba(5,8,22,0.5) 40%, transparent 100%)",
+                  "linear-gradient(to top, rgba(5,8,22,0.88) 0%, rgba(5,8,22,0.4) 40%, transparent 100%)",
               }}
             />
 
@@ -118,16 +154,17 @@ export function Home() {
             <div
               className="absolute top-0 bottom-0 right-0 z-[3] pointer-events-none"
               style={{
-                width: "22%",
-                background: "linear-gradient(to left, rgba(5,8,22,0.35) 0%, transparent 100%)",
+                width: "25%",
+                background: "linear-gradient(to left, rgba(5,8,22,0.25) 0%, transparent 100%)",
               }}
             />
 
-            {/* Desktop text overlay */}
-            <div className="absolute inset-0 z-[4]">
-              <HeroOverlay isMobile={false} />
+            {/* Left aligned text overlay */}
+            <div className="hero-content absolute inset-0 z-[4] pointer-events-none">
+              <div className="pointer-events-auto w-full h-full">
+                <HeroOverlay isMobile={false} />
+              </div>
             </div>
-
             {/* Scroll indicator */}
             <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-[5] flex flex-col items-center gap-1.5 animate-bounce pointer-events-none">
               <span className="text-[10px] text-white/40 uppercase tracking-widest font-mono">scroll</span>

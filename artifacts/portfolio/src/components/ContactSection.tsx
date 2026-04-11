@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Mail, Github, Linkedin, Twitter, Send } from "lucide-react";
+import { Mail, Github, Instagram, Send } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -40,10 +40,9 @@ export function ContactSection() {
   };
 
   const socials = [
-    { icon: Mail, label: "kumailraza@gmail.com", href: "mailto:kumailraza@gmail.com" },
-    { icon: Github, label: "github.com/kumailraza", href: "#" },
-    { icon: Linkedin, label: "linkedin.com/in/kumailraza", href: "#" },
-    { icon: Twitter, label: "@kumailraza", href: "#" },
+    { icon: Mail, label: "kumailr436@gmail.com", href: "mailto:kumailr436@gmail.com" },
+    { icon: Github, label: "github.com/kumailraza5", href: "https://github.com/kumailraza5" },
+    { icon: Instagram, label: "@kumail___r_a_z_a", href: "https://www.instagram.com/kumail___r_a_z_a?igsh=Z2JydmNxcTYzazFz&utm_source=qr" },
   ];
 
   const inputClass =
@@ -73,7 +72,7 @@ export function ContactSection() {
 
           <div className="flex flex-col gap-4">
             {socials.map(({ icon: Icon, label, href }) => (
-              <a key={label} href={href} className="flex items-center gap-4 group">
+              <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
                 <div className="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center text-violet-600 dark:text-violet-400 group-hover:bg-violet-600 group-hover:text-white transition-all duration-200 flex-shrink-0">
                   <Icon size={17} />
                 </div>

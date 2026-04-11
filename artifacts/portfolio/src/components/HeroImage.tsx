@@ -16,8 +16,8 @@ export function HeroImage({ scrollY, mobile = false }: HeroImageProps) {
   useEffect(() => {
     gsap.fromTo(
       wrapRef.current,
-      { opacity: 0, y: mobile ? 50 : 30 },
-      { opacity: 1, y: 0, duration: 1.0, ease: "expo.out", delay: 0.15 }
+      { opacity: 0, y: mobile ? 50 : 30, scale: 0.95, filter: "blur(10px)" },
+      { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 1.2, ease: "expo.out", delay: 0.2 }
     );
   }, [mobile]);
 
@@ -94,16 +94,17 @@ export function HeroImage({ scrollY, mobile = false }: HeroImageProps) {
         <img
           src="/kumail.png"
           alt="Kumail Raza"
-          className="block object-contain object-bottom"
+          className="relative block object-contain object-bottom transition-all duration-700"
           style={{
-            height: mobile ? "clamp(320px, 54vh, 450px)" : "clamp(420px, 82vh, 680px)",
+            height: mobile ? "clamp(320px, 54vh, 450px)" : "clamp(500px, 95vh, 850px)",
             width: "auto",
-            maxWidth: mobile ? "300px" : "380px",
+            maxWidth: mobile ? "300px" : "480px",
             filter:
               "drop-shadow(-12px 0 40px rgba(124,58,237,0.38)) drop-shadow(0 -5px 25px rgba(99,102,241,0.22))",
           }}
           draggable={false}
         />
+
       </div>
     </div>
   );

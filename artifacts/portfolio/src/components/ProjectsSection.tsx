@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ExternalLink, Github } from "lucide-react";
+import { Project3D } from "./Project3D";
+import { useTheme } from "../hooks/useTheme";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -185,68 +187,108 @@ function NoteNestPreview() {
 ───────────────────────────────────────── */
 const projects = [
   {
-    title: "DevBoard",
-    description: "Full-stack project management dashboard with real-time updates, team collaboration, and Supabase-powered backend with Row Level Security.",
-    tags: ["React", "TypeScript", "Supabase", "Tailwind"],
-    gradient: "from-violet-600 to-indigo-600",
-    bgGradient: "linear-gradient(135deg, #1e1040 0%, #0f0a2e 100%)",
-    glow: "hover:shadow-violet-500/25",
-    Preview: DevBoardPreview,
-  },
-  {
-    title: "ChatSync",
-    description: "Real-time messaging app with Firestore backend, presence indicators, read receipts, and encrypted rooms.",
-    tags: ["React", "Firestore", "Node.js", "TypeScript"],
-    gradient: "from-indigo-600 to-blue-600",
-    bgGradient: "linear-gradient(135deg, #0e1540 0%, #060f2e 100%)",
-    glow: "hover:shadow-blue-500/25",
-    Preview: ChatSyncPreview,
-  },
-  {
-    title: "AuthKit",
-    description: "Production-ready auth boilerplate — JWT, refresh tokens, email verification, OAuth and rate limiting with Node.js + TypeScript.",
-    tags: ["Node.js", "TypeScript", "Supabase", "JWT"],
-    gradient: "from-purple-600 to-pink-600",
-    bgGradient: "linear-gradient(135deg, #2a0e3f 0%, #1a0826 100%)",
-    glow: "hover:shadow-purple-500/25",
-    Preview: AuthKitPreview,
-  },
-  {
-    title: "StoreFront",
-    description: "E-commerce platform with a React storefront, Node.js API, Supabase database, and Stripe payments. Full admin dashboard included.",
-    tags: ["React", "Node.js", "Supabase", "Stripe"],
-    gradient: "from-teal-500 to-cyan-600",
-    bgGradient: "linear-gradient(135deg, #042a2b 0%, #021a1a 100%)",
-    glow: "hover:shadow-teal-500/25",
-    Preview: StoreFrontPreview,
-  },
-  {
-    title: "DataFlow",
-    description: "Analytics dashboard that ingests streaming data, aggregates via Node.js workers, and visualizes insights in interactive React charts.",
-    tags: ["React TS", "Node.js", "Firestore", "Recharts"],
-    gradient: "from-orange-500 to-rose-600",
-    bgGradient: "linear-gradient(135deg, #2a1000 0%, #1a0800 100%)",
-    glow: "hover:shadow-orange-500/25",
-    Preview: DataFlowPreview,
-  },
-  {
-    title: "NoteNest",
-    description: "Collaborative note-taking with rich text editing, live presence cursors, folder organization, and Supabase Realtime sync.",
-    tags: ["React", "TypeScript", "Supabase", "TipTap"],
-    gradient: "from-emerald-500 to-green-600",
-    bgGradient: "linear-gradient(135deg, #042214 0%, #021409 100%)",
+    title: "USP OBE System",
+    description: "OBE (Outcome-Based Education) System is a full-stack web application built using React (TypeScript), Node.js, Tailwind CSS, and Supabase. It helps manage students, courses, CLOs/PLOs, and assessments while tracking learning outcomes efficiently. The system provides a clean dashboard to monitor student performance and ensures better academic evaluation through data-driven insights.",
+    tags: ["React", "Node.js", "Supabase", "OBE System"],
+    image: "/obe.png",
+    githubUrl: "https://github.com/kumailraza5/OBE-System",
+    viewUrl: "https://obe-system-w2wd.onrender.com/",
     glow: "hover:shadow-emerald-500/25",
-    Preview: NoteNestPreview,
+    gradient: "from-emerald-600 to-teal-500",
   },
+  {
+    title: "Aurevo Store",
+    description: "A modern full-stack eCommerce store built with React and integrated with Supabase. It offers a smooth shopping experience for premium watches and luxury perfumes with responsive design, secure authentication, cart features, and a clean user-friendly interface.",
+    tags: ["React", "Supabase", "eCommerce"],
+    image: "/aurevo.png",
+    githubUrl: "https://github.com/kumailraza5/Aurevo.store",
+    viewUrl: "https://aurevostore.pk/",
+    glow: "hover:shadow-indigo-500/25",
+    gradient: "from-indigo-600 to-violet-500",
+  },
+  {
+    title: "Elite Motors – Luxury Car Showroom",
+    description: "A modern and responsive Car Showroom Website built with React and Tailwind CSS, featuring smooth animations, interactive car listings, and a clean, elegant UI to showcase luxury vehicles.",
+    tags: ["React", "Tailwind CSS"],
+    image: "/carshowroom.png",
+    githubUrl: "https://your-flutterflow.com/beauty-mart",
+    viewUrl: "https://carshowroom-ws42.onrender.com/",
+    glow: "hover:shadow-blue-500/25",
+    gradient: "from-blue-600 to-cyan-600",
+  },
+  {
+    title: "Salon Web App",
+    description: "A modern salon website built with React featuring client reviews, service packages, online booking, and secure payment integration for a smooth and user-friendly experience.",
+    tags: ["React", "Payment Integration"],
+    image: "/salonn.jpg",
+    githubUrl: "https://your-flutterflow.com/beauty-mart",
+    viewUrl: "https://saloon-app-kiic.onrender.com/",
+    glow: "hover:shadow-purple-500/25",
+    gradient: "from-purple-600 to-pink-600",
+  },
+  {
+    title: "Bakery UI Pink Theme",
+    description: "A charming, responsive Bakery App interface built with a pink-themed palette, designed to bring bakery menus to life with appetizing visuals, intuitive navigation, and delightful animations.",
+    tags: ["React", "Tailwind CSS"],
+    image: "/pink.png",
+    githubUrl: "https://your-flutterflow.com/beauty-mart",
+    viewUrl: "https://bakery-app-ui-pinktheme-1.onrender.com/",
+    glow: "hover:shadow-pink-500/25",
+    gradient: "from-pink-500 to-rose-400",
+  },
+  {
+    title: "Bakery UI Purple",
+    description: "A charming, responsive Bakery App interface built with a purple-themed palette, designed to bring bakery menus to life with appetizing visuals, intuitive navigation, and delightful animations.",
+    tags: ["React", "Tailwind CSS"],
+    image: "/purple.jpeg",
+    githubUrl: "https://your-flutterflow.com/beauty-mart",
+    viewUrl: "https://bakery-app-ui-purpletheme.onrender.com/",
+    glow: "hover:shadow-violet-500/25",
+    gradient: "from-violet-600 to-fuchsia-600",
+  }
 ];
 
 /* ─────────────────────────────────────────
    Section
 ───────────────────────────────────────── */
 export function ProjectsSection() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const sectionRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, title: string) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Calculate rotation based on mouse position relative to card center
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = (y - centerY) / 10;
+    const rotateY = (centerX - x) / 10;
+
+    gsap.to(card, {
+      rotateX: rotateX,
+      rotateY: rotateY,
+      scale: 1.05,
+      duration: 0.5,
+      ease: "power2.out",
+      transformPerspective: 1000
+    });
+  };
+
+  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    gsap.to(e.currentTarget, {
+      rotateX: 0,
+      rotateY: 0,
+      scale: 1,
+      duration: 0.5,
+      ease: "power2.out"
+    });
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -267,9 +309,10 @@ export function ProjectsSection() {
     <section
       id="projects"
       ref={sectionRef}
-      className="py-20 md:py-28 px-5 md:px-6 bg-gray-50 dark:bg-gray-900 transition-colors duration-500"
+      className="relative py-20 md:py-28 px-5 md:px-6 bg-gray-50 dark:bg-gray-900 transition-colors duration-500 overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto">
+      <Project3D isDark={isDark} />
+      <div className="relative z-10 max-w-6xl mx-auto">
         <div ref={headingRef} className="text-center mb-10 md:mb-16">
           <span className="text-xs font-bold uppercase tracking-widest text-violet-500 mb-3 block">My Work</span>
           <h2 className="text-3xl md:text-5xl font-black text-gray-900 dark:text-white mb-3">
@@ -285,35 +328,53 @@ export function ProjectsSection() {
           ref={cardsRef}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6"
         >
-          {projects.map(({ title, description, tags, gradient, bgGradient, glow, Preview }) => (
+          {projects.map(({ title, description, tags, gradient, glow, image, githubUrl, viewUrl }) => (
             <div
               key={title}
-              className={`group relative bg-white dark:bg-gray-800/60 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${glow} cursor-pointer flex flex-col`}
+              onMouseMove={(e) => handleMouseMove(e, title)}
+              onMouseLeave={handleMouseLeave}
+              className={`group relative bg-white dark:bg-gray-800/60 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700/50 transition-shadow duration-300 hover:shadow-2xl ${glow} flex flex-col will-change-transform`}
+              style={{ transformStyle: "preserve-3d" }}
             >
               {/* ── Project preview image area ── */}
               <div
-                className="relative overflow-hidden flex-shrink-0"
-                style={{ height: "148px", background: bgGradient }}
+                className="relative overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-gray-900"
+                style={{ height: "180px" }}
               >
                 {/* Gradient top bar */}
-                <div className={`absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r ${gradient}`} />
+                <div className={`absolute z-20 top-0 left-0 right-0 h-1 bg-gradient-to-r ${gradient}`} />
 
-                {/* Mock UI */}
-                <div className="absolute inset-0">
-                  <Preview />
-                </div>
+                {/* Actual Project Image */}
+                <img
+                  src={image}
+                  alt={title}
+                  className="w-full h-full object-cover object-top opacity-90 group-hover:scale-105 transition-transform duration-700"
+                  onError={(e) => (e.currentTarget.style.display = "none")} // fallback if image is missing
+                />
 
-                {/* Hover overlay */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-400`} />
+                {/* Light overlay for hover effect */}
+                <div className={`absolute z-10 inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-400 pointer-events-none`} />
 
-                {/* Links — revealed on hover */}
-                <div className="absolute top-2 right-2 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10">
-                  <button className="w-6 h-6 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-white hover:bg-violet-600 transition-colors">
-                    <Github size={11} />
-                  </button>
-                  <button className="w-6 h-6 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-white hover:bg-violet-600 transition-colors">
-                    <ExternalLink size={11} />
-                  </button>
+                {/* Links — revealed on hover (desktop) or always visible (mobile) */}
+                <div className="absolute top-3 right-3 flex gap-2 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-200 z-30">
+                  <a
+                    href={githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center text-white hover:bg-violet-600 hover:scale-110 transition-all cursor-pointer shadow-lg"
+                    title="View Source on GitHub"
+                  >
+                    <Github size={14} />
+                  </a>
+                  <a
+                    href={viewUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center text-white hover:bg-violet-600 hover:scale-110 transition-all cursor-pointer shadow-lg"
+                    title="View Live Site"
+                  >
+                    <ExternalLink size={14} />
+                  </a>
                 </div>
               </div>
 

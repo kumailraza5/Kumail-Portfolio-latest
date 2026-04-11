@@ -9,7 +9,7 @@ export function Footer() {
           &copy; {new Date().getFullYear()} Kumail Raza. All rights reserved.
         </p>
         <p className="text-xs text-gray-400 dark:text-gray-500">
-          Flutter Developer
+          Full Stack Developer
         </p>
       </div>
     </footer>

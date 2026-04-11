@@ -1,12 +1,15 @@
 import { Suspense, useState, useEffect, Component, ReactNode } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
+import * as THREE from "three";
 import { Particles } from "./Particles";
 import { CodeBackground } from "./CodeBackground";
+import { TechLogos3D } from "./TechLogos3D";
 
 interface HeroSceneProps {
   mouse: React.MutableRefObject<[number, number]>;
   scrollY: React.MutableRefObject<number>;
   isDark: boolean;
+  isMobile?: boolean;
 }
 
 function isWebGLSupported(): boolean {
@@ -94,7 +97,20 @@ class ErrorBoundary extends Component<{ children: ReactNode; fallback: ReactNode
   }
 }
 
-export function HeroScene({ isDark }: HeroSceneProps) {
+function SceneController({ mouse }: { mouse: React.MutableRefObject<[number, number]> }) {
+  useFrame((state) => {
+    // Smoothly tilt the camera based on mouse position
+    const targetX = mouse.current[0] * 0.5;
+    const targetY = mouse.current[1] * 0.5;
+    
+    state.camera.position.x = THREE.MathUtils.lerp(state.camera.position.x, targetX, 0.05);
+    state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, targetY, 0.05);
+    state.camera.lookAt(0, 0, 0);
+  });
+  return null;
+}
+
+export function HeroScene({ mouse, isDark, isMobile = false }: HeroSceneProps) {
   const [webglSupported, setWebglSupported] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -110,15 +126,17 @@ export function HeroScene({ isDark }: HeroSceneProps) {
   return (
     <ErrorBoundary fallback={fallbackBg}>
       <Canvas
-        camera={{ position: [0, 0, 6], fov: 45 }}
+        camera={{ position: [0, 0, 6], fov: isMobile ? 80 : 45 }}
         style={{ position: "absolute", inset: 0 }}
         gl={{ antialias: true, alpha: true, failIfMajorPerformanceCaveat: false }}
       >
+        <SceneController mouse={mouse} />
         <ambientLight intensity={isDark ? 0.5 : 0.8} />
         <pointLight position={[-3, 3, 3]} intensity={0.9} color="#7c3aed" />
         <Suspense fallback={null}>
-          <CodeBackground isDark={isDark} />
+          <CodeBackground isDark={isDark} isMobile={isMobile} />
         </Suspense>
+        <TechLogos3D isMobile={isMobile} />
         <Particles isDark={isDark} />
       </Canvas>
     </ErrorBoundary>

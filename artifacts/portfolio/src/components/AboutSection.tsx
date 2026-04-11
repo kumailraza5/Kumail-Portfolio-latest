@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { About3D } from "./About3D";
+import { useTheme } from "../hooks/useTheme";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,6 +22,8 @@ const stats = [
 ];
 
 export function AboutSection() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const sectionRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
@@ -57,9 +61,10 @@ export function AboutSection() {
     <section
       id="about"
       ref={sectionRef}
-      className="py-20 md:py-28 px-5 md:px-6 bg-white dark:bg-gray-950 transition-colors duration-500"
+      className="relative py-20 md:py-28 px-5 md:px-6 bg-white dark:bg-gray-950 transition-colors duration-500 overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+      <About3D isDark={isDark} />
+      <div className="relative z-10 max-w-6xl mx-auto grid md:grid-cols-2 gap-10 md:gap-16 items-center">
         <div ref={textRef}>
           <span className="text-xs font-bold uppercase tracking-widest text-violet-500 mb-3 block">
             About Me

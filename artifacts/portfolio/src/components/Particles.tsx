@@ -50,7 +50,7 @@ export function Particles({ isDark }: ParticlesProps) {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.04}
+        size={0.18}
         color={isDark ? "#a78bfa" : "#6366f1"}
         transparent
         opacity={isDark ? 0.7 : 0.5}
