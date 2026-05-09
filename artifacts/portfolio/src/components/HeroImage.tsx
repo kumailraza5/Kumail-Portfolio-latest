@@ -92,7 +92,7 @@ export function HeroImage({ scrollY, mobile = false }: HeroImageProps) {
         />
 
         <img
-          src="/kumail.png"
+          src="/pp.png"
           alt="Kumail Raza"
           className="relative block object-contain object-bottom transition-all duration-700"
           style={{
